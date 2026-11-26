@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Migração Stash → Já Zerei</title>
+  <link rel="stylesheet" href="/review.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Migração Stash → Já Zerei</h1>
+      <p id="status-line" class="subtitle">Carregando estado real…</p>
+    </div>
+    <div class="top-status">
+      <span id="write-state" class="gate off">Escrita bloqueada</span>
+      <button id="refresh-view" class="ghost">Atualizar</button>
+    </div>
+  </header>
+
+  <nav class="stage-tabs" aria-label="Etapas da migração">
+    <button data-stage="prepare" class="active"><span class="stage-number">1</span> Preparar</button>
+    <button data-stage="review"><span class="stage-number">2</span> Revisar e executar</button>
+    <button data-stage="result"><span class="stage-number">3</span> Conferir resultado</button>
+    <button data-stage="advanced" class="ghost">Avançado</button>
+  </nav>
+
+  <main class="stage-shell">
+    <section id="stage-prepare" class="stage" aria-live="polite"></section>
+
+    <section id="stage-review" class="stage" hidden>
+      <div id="plan-panel" class="plan-panel"></div>
+      <div class="review-tabs-bar">
+        <div id="review-tabs" class="review-tabs" role="tablist"></div>
+        <div id="review-progress" class="review-progress"></div>
+      </div>
+      <div id="review-batch" class="review-batch" hidden></div>
+      <div id="review-workspace" class="layout">
+        <aside class="sidebar">
+          <section id="summary" class="summary"></section>
+          <section class="filters">
+            <div id="filters" class="filter-row"></div>
+            <div id="review-extra-filters" class="filter-row"></div>
+            <input id="search" type="search" placeholder="Filtrar por título, slug ou ID" aria-label="Filtrar jogos">
+          </section>
+          <ol id="game-list" class="game-list"></ol>
+          <div id="pagination" class="pagination"></div>
+        </aside>
+        <section id="detail" class="detail">
+          <div class="empty">Selecione um jogo à esquerda.</div>
+        </section>
+      </div>
+    </section>
+
+    <section id="stage-result" class="stage" aria-live="polite" hidden></section>
+    <section id="stage-advanced" class="stage" aria-live="polite" hidden></section>
+  </main>
+
+  <div id="job-panel" class="job-panel" hidden aria-live="polite"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/review.js"></script>
+</body>
+</html>
