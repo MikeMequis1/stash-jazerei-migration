@@ -16,6 +16,7 @@ data/jazerei/*
 !data/jazerei/.gitkeep
 data/migration/*
 !data/migration/.gitkeep
+data/browser/
 reports/*
 !reports/.gitkeep
 *.log
