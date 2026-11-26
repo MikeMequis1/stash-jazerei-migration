@@ -1,5 +1,7 @@
 # Plano de implementação
 
+> **Documento histórico (ciclo encerrado em 2026-11-26).** O roadmap abaixo não é o plano do próximo ciclo. O projeto está pausado e a retomada está em [`docs/project-handoff.md`](project-handoff.md).
+
 Acompanhamento real do desenvolvimento. Uma etapa só é marcada como concluída com evidência de teste.
 
 ## Fase 0 — Preparação

@@ -2,15 +2,32 @@
 
 Ferramenta local para exportar jogos e reviews do Stash, relacioná-los ao catálogo do Já Zerei e preparar uma migração revisável e auditável.
 
-> **Estado (2026-11-26, Etapa 7):** fluxo visual reduzido a três etapas (Preparar, Revisar e executar, Conferir resultado) com seção Avançado. O perfil Chromium e o estado transitório do wizard foram descartados; a próxima preparação exige login manual. Coletas, snapshots, decisões humanas, planos, aprovações, preflights e execuções anteriores foram preservados. A execução `20261125T221529Z-...` mantém `pseudoregalia` como `write_ambiguous` (HTTP 401) e bloqueia nova preparação até reconciliação autenticada. Nenhuma escrita real foi executada nesta etapa; os dois gates continuam desligados.
+> **Projeto pausado para reestruturação (2026-11-26).** A implementação atual é **legado de referência**; não é a base recomendada para o próximo ciclo. Não inicie novas migrações pelo fluxo antigo.
+>
+> Leia primeiro:
+> - [Handoff e procedimento de retomada](docs/project-handoff.md)
+> - [Avaliação arquitetural e opções de reinício](docs/project-assessment-and-restart-options.md)
+>
+> Os dois gates de escrita permanecem desligados: `MIGRATION_ALLOW_WRITES=false` e `MIGRATION_ENABLE_REAL_WRITE_TRANSPORT=false`.
+
+## Estado atual
+
+- Escopo aprovado: migração de **avaliações** (76 escritas + 622 somente nota; 416 jogos sem nota fora do escopo).
+- Fora do escopo: Wishlist, favoritos, Playing Now, status de biblioteca e configurações de perfil.
+- Dados preservados: coleta, avaliações, matching, snapshots, journals, planos, preflight e execução.
+- Escritas históricas: 17 reviews verificadas no destino; elas não autorizam novas escritas.
+- Situação conhecida: motor de elegibilidade desconectado do planejamento legado e identidade de `left-4-dead-2` incorreta.
+- Próximo ciclo: aplicação mínima, linear, com uma única fonte de verdade; ver o handoff.
 
 ## Objetivos
-- Exportar jogos e reviews de MikeMequis1 no Stash.
+- Exportar jogos e reviews do perfil público do Stash.
 - Preservar dados de origem em JSON independente.
 - Relacionar jogos ao catálogo Já Zerei/IGDB.
-- Migrar reviews, Wishlist e configurações selecionadas.
+- Migrar avaliações com revisão humana.
 - Exigir aprovação explícita antes de escrever.
 - Produzir relatórios de conflitos, falhas e verificação.
+
+Wishlist, favoritos e Playing Now aparecem em documentos históricos, mas **não fazem parte do escopo atual**.
 
 ## Fontes
 - https://stash.games/users/MikeMequis1
@@ -18,12 +35,17 @@ Ferramenta local para exportar jogos e reviews do Stash, relacioná-los ao catá
 - Pesquisa: POST https://jazerei.com/api/search/games
 
 ## Documentação
+- [Handoff do projeto](docs/project-handoff.md) · [Avaliação e opções de reinício](docs/project-assessment-and-restart-options.md)
 - [Stash](docs/stash.md) · [Já Zerei](docs/jazerei-api.md)
 - [Arquitetura](docs/architecture.md) · [Plano](docs/implementation-plan.md) · [Segurança](docs/security.md)
 - [Registro de execução](docs/execution-log.md)
 - [Prontidão da Etapa 7](docs/readiness.md) · [Procedimento da primeira escrita](docs/operations-first-write.md)
 - [Interface de revisão de correspondências](docs/review-ui.md)
 - [Desenho do reset e UX em três etapas](docs/2026-11-26-reset-ux-design.md) · [Inventário de dados](docs/2026-11-26-data-inventory.md)
+
+## Referência histórica — fluxo legado
+
+**Nada nesta seção é recomendado como próximo passo.** Os comandos, caminhos e números abaixo descrevem o ciclo encerrado e são preservados para compreender ou reproduzir o funcionamento anterior. Eles podem estar desatualizados e não devem ser executados para iniciar uma nova migração. Para retomar o projeto, use [`docs/project-handoff.md`](docs/project-handoff.md).
 
 ## Instalação
 
@@ -252,7 +274,9 @@ src/
 tests/                parsers, plano, segurança, sessão Playwright, coleta e integridade
 ```
 
-## Resultados reais (2026-11-23/25)
+## Resultados históricos (2026-11-23/25)
+
+> Números de etapas anteriores. O estado consolidado de 2026-11-26 está no [handoff](docs/project-handoff.md).
 
 - HTTP direto ao Stash: **403 Cloudflare** em jogos e reviews.
 - Chromium headful: perfil público lido; **30 jogos** e **6 reviews** na primeira página; **38 páginas de jogos** e **13 de reviews** detectadas.
@@ -281,7 +305,7 @@ tests/                parsers, plano, segurança, sessão Playwright, coleta e i
 5. Preservar dados originais e trilha de auditoria.
 6. Nenhuma requisição de escrita no Já Zerei nesta fase.
 
-## Status
+## Status histórico do ciclo encerrado
 - [x] Descoberta inicial do Stash
 - [x] Operações de reviews, Wishlist, perfil e catálogo no Já Zerei
 - [x] Exportador Stash HTTP (implementado; bloqueado pelo Cloudflare)

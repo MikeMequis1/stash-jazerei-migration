@@ -1,5 +1,9 @@
 # Arquitetura
 
+> **Documento histórico do ciclo encerrado (2026-11-26).** Descreve a arquitetura legada e preserva o histórico das etapas. Não é a arquitetura recomendada para o próximo ciclo. Para o estado consolidado e a direção futura, leia [`docs/project-handoff.md`](project-handoff.md).
+>
+> Pontos que foram superados por etapas posteriores: o transporte real existe desde a Etapa 9 (não é apenas simulado); houve 17 escritas reais verificadas em 2026-11-26; e o motor de elegibilidade novo **não** é consumido pelo planner legado. Os gates continuam desligados por padrão.
+
 Stash é origem; Já Zerei é destino. O formato intermediário é independente. Exports originais são imutáveis. Correspondências são explícitas e auditáveis. Toda escrita exige aprovação e verificação posterior.
 
 ## Fluxo
@@ -348,14 +352,14 @@ plan + approval + preflight compatible
 - Somente criação de review (`before:null`, `kind:review`); update/delete/Wishlist/favoritos/Playing Now bloqueados.
 - Payload exato `{game_id,rating,text,liked}`; `liked` booleano explícito, sem `null`, sem campos extras.
 - Confirmação vinculada a execution/plano/manifesto/preflight/ação/payload/identidade.
-- Transporte real não é fornecido ao gateway; `execute_action` recusa transporte não simulado mesmo com `allow_writes=true`.
+- Até a Etapa 6 o transporte real não era fornecido ao gateway; a Etapa 9 passou a fornecê-lo exclusivamente por `BrowserWriteTransport`, atrás dos dois gates.
 - Preflight precisa ser compatível, íntegro, vinculado à mesma aprovação e não anterior a ela.
 - Timeout, conexão interrompida após envio, HTTP 4xx/5xx, identidade divergente, captura incompleta ou review ausente na releitura → `write_ambiguous`, sem retry. Apenas falha comprovadamente anterior ao envio (`WriteNotSent`) vira `failed`.
 - Verificação posterior exige identidade, `game_id`, dono, nota, texto e `liked` iguais ao payload; HTTP 2xx isolado não basta.
 - Interrupção persistida em `writing`/`verification_pending` é classificada como ambígua por `execution-reconcile`; `execution-resolve` só aceita evidência autenticada e conclusiva, mantém review ausente como ambígua e nunca reenvia.
 - Enquanto existir ação `write_ambiguous`, a execução fica `inconclusive` e qualquer nova ação é recusada.
 - `execution.json`, `events.jsonl`, `confirmations.jsonl` e `manifest.json` em `data/migration/executions/<id>/`.
-- Nenhuma execução real está disponível na CLI.
+- `execution-run` é o único caminho real; exige os dois gates e confirmação exata. Foi usado em 2026-11-26 para 17 ações verificadas; ver `docs/project-handoff.md`.
 - Auditoria da Etapa 7: helpers legados de escrita foram identificados e removidos na Etapa 8. A Etapa 9 implementou o transporte real exclusivamente no gateway, com dois gates falsos por padrão; ver `docs/readiness.md` e `docs/operations-first-write.md`.
 
 ### Transições de execução

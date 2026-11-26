@@ -1,4 +1,6 @@
-# Procedimento operacional — primeira escrita real (futura)
+# Procedimento operacional - primeira escrita real (futura)
+
+> **Referência histórica (ciclo encerrado em 2026-11-26).** Este runbook não deve ser executado no próximo ciclo. Ele descreve a preparação da primeira escrita do fluxo legado; o primeiro marco da retomada está em [`docs/project-handoff.md`](project-handoff.md). Os gates permanecem desligados.
 
 **Status:** documentação de preparação. Nenhum comando aqui foi executado para escrita real.  
 **Pré-requisito:** ler `docs/readiness.md`. O resultado global atual é `blocked`.

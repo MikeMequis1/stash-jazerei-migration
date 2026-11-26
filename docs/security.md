@@ -1,5 +1,7 @@
 # Segurança e privacidade
 
+> **Documento histórico do ciclo encerrado (2026-11-26).** As regras de segurança continuam válidas, mas alguns estados descritos abaixo foram superados: houve 17 escritas reais verificadas em 2026-11-26 e o transporte real existe. Os gates permanecem desligados. Para o estado consolidado, leia [`docs/project-handoff.md`](project-handoff.md).
+
 Nunca versionar access_token, id_token, refresh_token, cookies, Authorization, API keys, .env real, exports reais, perfis de navegador ou dumps do DevTools com dados de sessão.
 
 ## Credenciais
@@ -43,7 +45,7 @@ Requisições bloqueadas são abortadas no contexto do navegador e aparecem em `
 - Importador real continua não implementado.
 - Nenhum botão de salvar/adicionar/remover/atualizar é clicado.
 - Nenhuma review, Wishlist, favorito ou Playing Now foi alterado.
-- Requisições de escrita são bloqueadas em três camadas: política de rede do navegador, ausência de cliente/transporte mutável fora do gateway e gateway somente simulado.
+- Requisições de escrita são bloqueadas em três camadas: política de rede do navegador, ausência de cliente/transporte mutável fora do gateway e gateway com transporte real desligado por padrão.
 - O navegador só executa fetch same-origin de leitura.
 
 ## Exportações e integridade
@@ -109,7 +111,7 @@ Requisições bloqueadas são abortadas no contexto do navegador e aparecem em `
 - Captura incompleta/identidade divergente resulta em `inconclusive`/`blocked`, nunca ausência.
 - Ações não suportadas bloqueiam o resultado global.
 - Resultado/manifesto append-only; não sobrescreve snapshots ou preflights anteriores.
-- Preflight compatível não autoriza escrita; o gateway existe, o transporte real está desligado por padrão e nunca foi executado.
+- Preflight compatível não autoriza escrita; o gateway existe, o transporte real está desligado por padrão e foi usado em 2026-11-26 para 17 ações verificadas.
 
 ### Gateway de execução e transporte real
 
@@ -180,7 +182,7 @@ Não devem ser gravados:
 - Mudanças de DOM/API quebram seletores e parsers; os relatórios expõem campos ausentes/falhas.
 - Automação de navegador pode ser detectada; preferir intervalos e uso manual.
 - O perfil persistente é sensível mesmo sem token em texto claro.
-- Aprovação, preflight e confirmação por CLI existem, mas não executam migração; execução real continua futura.
+- Aprovação, preflight e confirmação por CLI existem, mas não executam migração; a execução real existe e já foi usada uma vez, e novas escritas exigem autorização explícita.
 - O contrato do backend para omissão/`null`/default de `liked` continua desconhecido; decisão humana é obrigatória.
 - `liked` foi identificado no frontend como recomendação do autor, não curtida da review; curtidas usam `review_likes`.
 - O snapshot autenticado já está implementado; ainda não é consumido automaticamente pelo planner.

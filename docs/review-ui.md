@@ -1,5 +1,7 @@
 # Interface local de revisão de correspondências
 
+> **Documento histórico do ciclo encerrado (2026-11-26).** A interface atual é legado de referência e não deve ser a base do próximo ciclo. Ela mistura estados de correspondência, destino e `liked`, e o painel de plano usa o planejamento antigo. Para a direção futura, leia [`docs/project-handoff.md`](project-handoff.md).
+
 **Status:** fluxo em três etapas e orquestrador de preparação implementados em 2026-11-26 (Etapa 7). Revisão, ratificação em lote, wizard anterior e endurecimento causal da Etapa 5 preservados no backend.  
 **Dados reutilizáveis:** `stage9-full-stash-browser-v2-20261125` + `stage9-account-snapshot-20261125`; seleção antiga não é retomada automaticamente.
 

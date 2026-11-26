@@ -117,7 +117,7 @@ Firebase Secure Token observado em `https://securetoken.googleapis.com/v1/token?
 Leitura: `GET /rest/v1/reviews?select=*&user_id=eq.{USER_ID}&order=created_at.desc`.
 Campos: id, game_id, game_slug, game_name, game_cover, game_year, developer, user_id, username, rating, text, created_at, likes_count, comments_count, short_id, genres, moderation_status. Review com texto vazio é válida.
 
-Upsert (bloqueado por padrão): `POST /api/reviews/upsert`, `{"game_id":26570,"rating":0.5,"text":"ruim","liked":false}`. O único transporte está no gateway, atrás de dois gates e sem uso real até agora.
+Upsert (bloqueado por padrão): `POST /api/reviews/upsert`, `{"game_id":26570,"rating":0.5,"text":"ruim","liked":false}`. O único transporte está no gateway, atrás de dois gates; foi usado em 2026-11-26 em uma execução controlada com 17 ações verificadas (ver `docs/project-handoff.md`).
 
 O frontend busca o token com `currentUser.getIdToken(true)` e envia apenas `Content-Type: application/json` e `Authorization: Bearer <ID token Firebase>` para `/api/reviews/upsert`. Sem esse cabeçalho, o endpoint responde `401 Authentication required`. O gateway captura o mesmo `Authorization` da sessão autenticada e o mantém somente em memória.
 
@@ -146,7 +146,7 @@ Biblioteca externa é de serviços como Steam, não a biblioteca principal. Jogo
 - Verificação posterior exige reler a review e comparar identidade, dono, jogo, nota, texto e liked, não apenas HTTP 2xx.
 - Transporte real: `BrowserWriteTransport` no gateway, endpoint fixo, POST, `context.request`, `max_redirects=0`, sem retry, timeout explícito.
 - `MIGRATION_ALLOW_WRITES=true` e `MIGRATION_ENABLE_REAL_WRITE_TRANSPORT=true` são obrigatórios; ambos falsos por padrão.
-- Execução real nunca foi realizada; testes usam sessão simulada e mocks.
+- Execução real foi realizada em 2026-11-26 com 17 ações verificadas; os testes de transporte continuam usando sessão simulada e mocks.
 
 ## Política aplicada ao navegador
 - Liberado: GET/HEAD leitura, `/api/search/games`, `/api/igdb/query`, RPCs de leitura (`get_*`, `public_get_*`, `list_*`, `count_*`, `check_*`) na API/Supabase, refresh Firebase.
@@ -170,6 +170,6 @@ que o backend aceita esse estado; nenhuma escrita foi feita nesta etapa.
 ## Pendências
 - Wishlist e perfil autenticados ainda não usam o mecanismo de snapshot.
 - Contrato de `liked` para omissão/`null`/default do backend continua desconhecido; não testar por escrita.
-- Aprovação por hash, preflight e gateway existem; transporte real está implementado, mas desabilitado por dois gates e nunca executado. Escrita real continua futura e bloqueada.
+- Aprovação por hash, preflight e gateway existem; o transporte real foi executado em 2026-11-26 (17 ações verificadas) e hoje está desabilitado pelos dois gates. Novas escritas continuam futuras e bloqueadas até autorização explícita.
 - Limites validados no servidor; remoção de favoritos/Playing Now; rate limits/paginação.
 - DOM fallback de busca não testado no site real; API same-origin foi suficiente.

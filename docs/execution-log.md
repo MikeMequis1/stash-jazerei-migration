@@ -615,6 +615,38 @@ Testes offline: política (leitura/write/desconhecido/Cloudflare), sessão real 
 - Suíte completa, Ruff e `node --check` aprovados.
 - Novos testes: inicialização somente leitura, proveniência do snapshot, política sem escrita, job/cancelamento, lock, correspondências incrementais, seleção bloqueada durante execução retomável e ativação do plano gerado.
 
+## 2026-11-26 — Encerramento do ciclo e handoff
+
+**Decisão**
+- Ciclo atual formalmente pausado. A implementação existente permanece como legado de referência, sem novas funcionalidades.
+- Próximo ciclo: aplicação mínima, linear e com uma única fonte de verdade; ver `docs/project-handoff.md`.
+
+**Estado consolidado**
+- Coleta preservada: `data/stash/runs/20261126T183458Z-stash-browser` com 1.114 jogos e 76 reviews.
+- Avaliações: 698 com nota; 76 escritas, 622 somente nota, 416 sem nota.
+- Matching: 629 alvos; 553 candidatos, 49 revisão manual, 26 sem candidato e 1 inconclusivo.
+- Destino: 36 reviews no snapshot atual; 35 de origem representadas (17 escritas verificadas + 18 candidatos reconciliados por conteúdo).
+- Execução preservada `20261126T191634Z-execution-stage9-review-20261126T191627Z`: 17 ações `verified`, 34 `cancelled`.
+- Decisões: 51 correspondências aprovadas; 53 eventos de `liked` (47 automáticos, 6 humanos).
+- Gates desligados; nenhuma escrita nova, plano, preflight ou execução nesta etapa.
+
+**Correção de entendimento**
+- As 17 escritas de 2026-11-26 foram reais e confirmadas por releitura autenticada. Registros anteriores deste log que dizem “nenhuma escrita real” descrevem etapas anteriores, não o estado consolidado.
+- As execuções `20261125T221529Z` e `20261125T224312Z` citadas em entradas antigas não estão mais no disco após o reset operacional; não devem ser procuradas como evidência atual.
+
+**Pendências registradas**
+- `left-4-dead-2` aponta para o candidato errado (122; correto 124).
+- Rango, Ratatouille e Spirit exigem reavaliação de edição/identidade.
+- 47 `liked` automáticos exigem reconfirmação.
+- Nenhuma avaliação somente nota foi escrita e verificada.
+- Contrato de `platforms` continua desconhecido.
+- O planejamento legado não consome o motor de elegibilidade novo.
+
+**Documentação**
+- Criado `docs/project-handoff.md`.
+- README e documentos operacionais receberam avisos de ciclo encerrado e referência ao handoff.
+- Nenhum commit ou push.
+
 ## 2026-11-25 - Progresso, cancelamento e retomada na UI
 
 **Implementado**

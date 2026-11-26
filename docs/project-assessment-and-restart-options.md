@@ -1,5 +1,7 @@
 # Avaliação do projeto e opções de reinicialização
 
+> **Complemento operacional:** para retomar o projeto, leia [`docs/project-handoff.md`](project-handoff.md). Este documento explica o diagnóstico e as alternativas; o handoff registra o estado de encerramento e o primeiro marco.
+
 **Data:** 2026-11-26  
 **Branch:** `main`  
 **Escopo:** consolidação, commits locais e auditoria read-only.  

@@ -1,4 +1,6 @@
-# Etapa 7 — Auditoria operacional e prontidão para a primeira escrita
+# Etapa 7 - Auditoria operacional e prontidão para a primeira escrita
+
+> **Documento histórico (2026-11-26).** Esta auditoria descreve uma etapa anterior do ciclo encerrado. Não é uma autorização e não reflete todo o estado atual: depois dela houve 17 escritas reais verificadas, e os gates continuam desligados. Para retomar o projeto, leia [`docs/project-handoff.md`](project-handoff.md).
 
 **Data:** 2026-11-24  
 **Escopo:** auditoria local, sem escrita real.  
